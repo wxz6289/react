@@ -1,0 +1,12 @@
+[submodule "professional-reactjs"]
+	path = professional-reactjs
+	url = git@github.com:wxz6289/professional-reactjs.git
+[submodule "react-hooks"]
+	path = react-hooks
+	url = git@github.com:wxz6289/react-hooks.git
+[submodule "react-hooks-in-action"]
+	path = react-hooks-in-action
+	url = git@github.com:wxz6289/react-hooks-in-action.git
+[submodule "react-js-foundations"]
+	path = react-js-foundations
+	url = git@github.com:wxz6289/react-js-foundations.git
