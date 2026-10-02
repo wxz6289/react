@@ -1,19 +1,23 @@
-import { forwardRef, useImperativeHandle, useRef, Ref } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
+import type { ComponentPropsWithoutRef, Ref } from 'react';
 
-type Props = {};
+type Props = ComponentPropsWithoutRef<'input'>;
 
-const MyInput = forwardRef(function MyInput(props: Props, ref: Ref<HTMLInputElement>) {
-  const innerRef = useRef();
-  useImperativeHandle(ref, () => {
-    return {
-      focus() {
-        innerRef?.current?.focus();
-      },
-      scrollIntoView() {
-        innerRef?.current?.scrollIntoView();
-      },
-    };
-  }, []);
+export type MyInputHandle = {
+  focus: () => void;
+  scrollIntoView: () => void;
+};
+
+const MyInput = forwardRef<MyInputHandle, Props>(function MyInput(props, ref: Ref<MyInputHandle>) {
+  const innerRef = useRef<HTMLInputElement>(null);
+  useImperativeHandle(ref, () => ({
+    focus() {
+      innerRef.current?.focus();
+    },
+    scrollIntoView() {
+      innerRef.current?.scrollIntoView();
+    },
+  }), []);
   return (
     <div>
       <p>MyInput</p>
@@ -23,15 +27,15 @@ const MyInput = forwardRef(function MyInput(props: Props, ref: Ref<HTMLInputElem
 });
 
 function TestUseImperativeHandle() {
-  const myRef = useRef<HTMLInputElement>();
+  const myRef = useRef<MyInputHandle>(null);
   const handleClick = () => {
     myRef?.current?.focus()
     console.log('MyInput:', myRef)
   }
   return (
-    <div>
-      <MyInput ref={myRef} onClick={handleClick}></MyInput>
-      <button onClick={handleClick}>focus</button>
+    <div className="flex flex-col items-center justify-center">
+      <MyInput ref={myRef} onClick={handleClick} className="border-1 border-gray-300 rounded-md px-2 py-1" />
+      <button className="rounded-md border-1 mt-2 px-2 py-1 border-gray-300 text-blue-500 hover:bg-gray-100" onClick={handleClick}>focus</button>
     </div>
   )
 }

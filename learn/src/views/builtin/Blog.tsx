@@ -5,6 +5,7 @@ type Blog = {
   title: string,
   body: string
 }
+
 const posts: Blog[] = [
   { id: 1, title: 'An update', body: "It's been a while since I posted..." },
   { id: 2, title: 'My new blog', body: 'I am starting a new blog!' }
@@ -19,11 +20,11 @@ export default function Blog() {
   );
 }
 
-function PostTitle({ title }: { title: string}) {
+function PostTitle({ title }: Readonly<Pick<Blog, 'title'>>) {
   return <h1>{title}</h1>
 }
 
-function PostBody({ body }: { body: string}) {
+function PostBody({ body }: Readonly<Pick<Blog, 'body'>>) {
   return (
     <article>
       <p>{body}</p>

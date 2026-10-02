@@ -6,7 +6,8 @@ export default function TestFragment() {
   console.log(child);
   return (
     <>
-     <div>Fragment</div>
+      <div>Fragment</div>
+      {child}
     </>
   )
 }
